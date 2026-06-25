@@ -18,6 +18,11 @@ jobs:
         spec:
           - ice-dkms.spec
           - iavf-dkms.spec
+          - idpf-dkms.spec
+          - i40e-dkms.spec
+          - ixgbe-dkms.spec
+          - ixgbevf-dkms.spec
+          - igb-dkms.spec
     steps:
       - uses: actions/checkout@v4
       - name: Install rpkg tooling
@@ -32,4 +37,3 @@ jobs:
         with:
           name: ${{ matrix.spec }}-srpm
           path: srpm/*.src.rpm
-

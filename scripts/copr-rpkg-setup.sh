@@ -8,6 +8,11 @@ branch="${BRANCH:-main}"
 packages=(
   "ice-dkms:ice-dkms.spec"
   "iavf-dkms:iavf-dkms.spec"
+  "idpf-dkms:idpf-dkms.spec"
+  "i40e-dkms:i40e-dkms.spec"
+  "ixgbe-dkms:ixgbe-dkms.spec"
+  "ixgbevf-dkms:ixgbevf-dkms.spec"
+  "igb-dkms:igb-dkms.spec"
 )
 
 for item in "${packages[@]}"; do
@@ -21,7 +26,8 @@ for item in "${packages[@]}"; do
       --commit "$branch" \
       --spec "$spec" \
       --type git \
-      --method rpkg
+      --method rpkg \
+      --webhook-rebuild on
   else
     copr-cli add-package-scm "$repo" \
       --name "$name" \
@@ -29,6 +35,7 @@ for item in "${packages[@]}"; do
       --commit "$branch" \
       --spec "$spec" \
       --type git \
-      --method rpkg
+      --method rpkg \
+      --webhook-rebuild on
   fi
 done

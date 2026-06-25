@@ -21,6 +21,57 @@
       "tag": "v4.13.35",
       "asset": "iavf-4.13.35.tar.gz",
       "sha256": "d4fc9ff8dbc8e3ac39d51489d8a9d66067869a6821d53dfbd738a29fd2d77a10"
+    },
+    {
+      "name": "idpf",
+      "package": "idpf-dkms",
+      "spec": "idpf-dkms.spec",
+      "upstream": "intel/ethernet-linux-idpf",
+      "source_type": "tag-archive",
+      "version": "1.0.11",
+      "tag": "v1.0.11",
+      "asset": "idpf-1.0.11.tar.gz",
+      "sha256": "2841360b3e450004d8514b595556cba49c8f41f419c5ca26d2b75f63c6a36597"
+    },
+    {
+      "name": "i40e",
+      "package": "i40e-dkms",
+      "spec": "i40e-dkms.spec",
+      "upstream": "intel/ethernet-linux-i40e",
+      "version": "2.30.18",
+      "tag": "v2.30.18",
+      "asset": "i40e-2.30.18.tar.gz",
+      "sha256": "d1cb08d92ad7ad66c88752a481388266ae5d8ca8e189079b0a2a0885af3e3cf6"
+    },
+    {
+      "name": "ixgbe",
+      "package": "ixgbe-dkms",
+      "spec": "ixgbe-dkms.spec",
+      "upstream": "intel/ethernet-linux-ixgbe",
+      "version": "6.4.4",
+      "tag": "v6.4.4",
+      "asset": "ixgbe-6.4.4.tar.gz",
+      "sha256": "29f6787dfe81466f4776c0cd2998465ff63b773dc5fb0bc937960a9ebb29c216"
+    },
+    {
+      "name": "ixgbevf",
+      "package": "ixgbevf-dkms",
+      "spec": "ixgbevf-dkms.spec",
+      "upstream": "intel/ethernet-linux-ixgbevf",
+      "version": "5.3.36",
+      "tag": "v5.3.36",
+      "asset": "ixgbevf-5.3.36.tar.gz",
+      "sha256": "e78708c029ed6ad479fbf81c16e828e4f38aa8c2f36365f133ef55ada722129f"
+    },
+    {
+      "name": "igb",
+      "package": "igb-dkms",
+      "spec": "igb-dkms.spec",
+      "upstream": "intel/ethernet-linux-igb",
+      "version": "5.20.28",
+      "tag": "v5.20.28",
+      "asset": "igb-5.20.28.tar.gz",
+      "sha256": "b8ae91346053b7310f95ad7a030449cbc28ddd7904a43d1853e6253ab8755c4d"
     }
   ]
 }

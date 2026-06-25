@@ -9,14 +9,20 @@ Tracked packages:
 | --- | --- | --- |
 | `ice-dkms` | `intel/ethernet-linux-ice` | `2.6.6` |
 | `iavf-dkms` | `intel/ethernet-linux-iavf` | `4.13.35` |
+| `idpf-dkms` | `intel/ethernet-linux-idpf` | `1.0.11` |
+| `i40e-dkms` | `intel/ethernet-linux-i40e` | `2.30.18` |
+| `ixgbe-dkms` | `intel/ethernet-linux-ixgbe` | `6.4.4` |
+| `ixgbevf-dkms` | `intel/ethernet-linux-ixgbevf` | `5.3.36` |
+| `igb-dkms` | `intel/ethernet-linux-igb` | `5.20.28` |
 
 ## Layout
 
-- `ice-dkms.spec` and `iavf-dkms.spec` are top-level COPR package specs.
+- `*-dkms.spec` files are top-level COPR package specs.
 - `drivers.json` is the single source of truth for tracked upstream release
   metadata.
 - `scripts/update-drivers.py` refreshes GitHub release versions, asset names,
-  and SHA-256 digests.
+  and SHA-256 digests. Most drivers use release assets; drivers without release
+  assets can use GitHub tag archives.
 - `scripts/copr-rpkg-setup.sh` creates or updates COPR SCM package definitions.
 
 ## Local rpkg Flow
@@ -26,15 +32,14 @@ specs:
 
 ```sh
 make validate
-make srpm-ice
-make srpm-iavf
+make srpm-all
 ```
 
 Or call `rpkg` directly:
 
 ```sh
 rpkg srpm --outdir dist/srpm --spec ice-dkms.spec
-rpkg srpm --outdir dist/srpm --spec iavf-dkms.spec
+rpkg srpm --outdir dist/srpm --spec i40e-dkms.spec
 ```
 
 ## COPR Setup
@@ -48,12 +53,7 @@ CLONE_URL=https://github.com/FlyGoat/copr-intel-ethernet-linux-dkms.git \
 scripts/copr-rpkg-setup.sh
 ```
 
-Then trigger builds:
-
-```sh
-copr-cli build-package flygoat/intel-ethernet-linux-dkms --name ice-dkms
-copr-cli build-package flygoat/intel-ethernet-linux-dkms --name iavf-dkms
-```
+With webhook rebuild enabled, pushes to `main` trigger COPR package builds.
 
 The same settings can be entered in the COPR web UI:
 
@@ -62,7 +62,8 @@ The same settings can be entered in the COPR web UI:
 - Clone URL: `https://github.com/FlyGoat/copr-intel-ethernet-linux-dkms.git`
 - Committish: `main`
 - Method: `rpkg`
-- Spec file: `ice-dkms.spec` or `iavf-dkms.spec`
+- Spec file: the matching top-level `*-dkms.spec`
+- Webhook rebuild: enabled
 
 ## Upstream Updates
 
@@ -72,13 +73,13 @@ The scheduled GitHub Action runs:
 python3 scripts/update-drivers.py --write
 ```
 
-If Intel publishes a newer GitHub release with a matching release asset, the
-workflow opens a pull request updating `drivers.json`, the spec `Version:`, and
-the changelog entry.
+If Intel publishes a newer GitHub release with a matching source, the workflow
+opens a pull request updating `drivers.json`, the spec `Version:`, and the
+changelog entry.
 
 ## Adding Another Driver
 
-To add another Intel driver such as `i40e`:
+To add another Intel driver such as `e1000e`:
 
 1. Add a new entry to `drivers.json`.
 2. Add a matching top-level `<driver>-dkms.spec`.

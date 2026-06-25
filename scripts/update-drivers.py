@@ -68,6 +68,25 @@ def choose_asset(driver, release):
     )
 
 
+def archive_asset(driver, release):
+    version = release["tag_name"].removeprefix("v")
+    name = f"{driver['name']}-{version}.tar.gz"
+    url = (
+        f"https://github.com/{driver['upstream']}/archive/refs/tags/"
+        f"{release['tag_name']}/{name}"
+    )
+    return version, {"name": name, "browser_download_url": url}
+
+
+def source_asset(driver, release):
+    source_type = driver.get("source_type", "release-asset")
+    if source_type == "release-asset":
+        return choose_asset(driver, release)
+    if source_type == "tag-archive":
+        return archive_asset(driver, release)
+    raise RuntimeError(f"{driver['name']}: unsupported source_type {source_type}")
+
+
 def asset_sha256(asset):
     digest = asset.get("digest") or ""
     if digest.startswith("sha256:"):
@@ -170,7 +189,7 @@ def refresh(data, selected):
             continue
 
         release = latest_release(driver["upstream"])
-        version, asset = choose_asset(driver, release)
+        version, asset = source_asset(driver, release)
         sha256 = asset_sha256(asset)
 
         old_version = driver["version"]
