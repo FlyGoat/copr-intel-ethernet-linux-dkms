@@ -10,7 +10,6 @@
       "version": "2.6.6",
       "tag": "v2.6.6",
       "asset": "ice-2.6.6.tar.gz",
-      "ddp_package": "ice-1.3.59.0.pkg",
       "sha256": "d992e3255c44189830a954b0b420fb9f6f9cce15ce9596522bfb0ec2f5f73225"
     },
     {

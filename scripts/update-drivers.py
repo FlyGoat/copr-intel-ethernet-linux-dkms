@@ -6,7 +6,6 @@ import json
 import os
 import re
 import sys
-import tarfile
 import urllib.request
 
 
@@ -84,25 +83,6 @@ def asset_sha256(asset):
     return sha.hexdigest()
 
 
-def release_ddp_package(driver, asset):
-    pattern = re.compile(
-        rf"^[^/]+/ddp/{re.escape(driver['name'])}-[0-9][^/]*\.pkg$"
-    )
-    with urllib.request.urlopen(request(asset["browser_download_url"]), timeout=300) as resp:
-        with tarfile.open(fileobj=resp, mode="r|gz") as tar:
-            matches = [
-                os.path.basename(member.name)
-                for member in tar
-                if member.isfile() and pattern.match(member.name)
-            ]
-
-    if len(matches) != 1:
-        raise RuntimeError(
-            f"Expected one DDP package in {driver['asset']}, found: {matches}"
-        )
-    return matches[0]
-
-
 def spec_version(spec_path):
     with open(spec_path, "r", encoding="utf-8") as f:
         for line in f:
@@ -110,15 +90,6 @@ def spec_version(spec_path):
             if match:
                 return match.group(1)
     raise RuntimeError(f"No Version tag found in {spec_path}")
-
-
-def spec_global(spec_path, name):
-    with open(spec_path, "r", encoding="utf-8") as f:
-        for line in f:
-            match = re.match(rf"^%global\s+{re.escape(name)}\s+(\S+)", line)
-            if match:
-                return match.group(1)
-    return None
 
 
 def update_spec(driver, old_version, new_version):
@@ -135,17 +106,6 @@ def update_spec(driver, old_version, new_version):
     )
     if count != 1:
         raise RuntimeError(f"Could not update Version tag in {driver['spec']}")
-
-    if "ddp_package" in driver:
-        content, count = re.subn(
-            r"^%global\s+ddp_package\s+\S+",
-            f"%global ddp_package {driver['ddp_package']}",
-            content,
-            count=1,
-            flags=re.MULTILINE,
-        )
-        if count != 1:
-            raise RuntimeError(f"Could not update ddp_package macro in {driver['spec']}")
 
     if new_version != old_version:
         content, count = re.subn(
@@ -199,14 +159,6 @@ def validate_local(data):
                 f"expected {expected_tag}"
             )
 
-        if "ddp_package" in driver:
-            ddp_package = spec_global(spec_path, "ddp_package")
-            if ddp_package != driver["ddp_package"]:
-                errors.append(
-                    f"{driver['name']}: {driver['spec']} ddp_package is "
-                    f"{ddp_package}, drivers.json has {driver['ddp_package']}"
-                )
-
     if errors:
         raise RuntimeError("\n".join(errors))
 
@@ -228,23 +180,13 @@ def refresh(data, selected):
             "asset": asset["name"],
             "sha256": sha256,
         }
-        if "ddp_package" in driver:
-            updates["ddp_package"] = release_ddp_package(driver, asset)
-
         for key, value in updates.items():
             if driver.get(key) != value:
                 driver[key] = value
                 changed = True
 
         spec_path = os.path.join(ROOT, driver["spec"])
-        needs_spec_update = spec_version(spec_path) != version
-        if "ddp_package" in driver:
-            needs_spec_update = (
-                needs_spec_update
-                or spec_global(spec_path, "ddp_package") != driver["ddp_package"]
-            )
-
-        if needs_spec_update:
+        if spec_version(spec_path) != version:
             update_spec(driver, old_version, version)
             changed = True
 

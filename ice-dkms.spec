@@ -1,6 +1,5 @@
 %global dkms_name ice
 %global upstream_repo intel/ethernet-linux-ice
-%global ddp_package ice-1.3.59.0.pkg
 %global _disable_source_fetch 0
 
 Name:           ice-dkms
@@ -50,9 +49,11 @@ EOF
 
 firmware_dir=%{buildroot}/lib/firmware/updates/intel/%{dkms_name}/ddp
 install -d "$firmware_dir"
-install -m 0644 ddp/%{ddp_package} "$firmware_dir"/
+install -m 0644 ddp/%{dkms_name}-*.pkg "$firmware_dir"/
 install -m 0644 ddp/LICENSE "$firmware_dir"/
-ln -s "%{ddp_package}" "$firmware_dir/%{dkms_name}.pkg"
+set -- "$firmware_dir"/%{dkms_name}-*.pkg
+ddp_package="$(basename "$1")"
+ln -s "$ddp_package" "$firmware_dir/%{dkms_name}.pkg"
 
 %post
 /usr/sbin/dkms add -m %{dkms_name} -v %{version} --rpm_safe_upgrade || :
@@ -72,7 +73,7 @@ ln -s "%{ddp_package}" "$firmware_dir/%{dkms_name}.pkg"
 %{_usrsrc}/%{dkms_name}-%{version}/kcompat-gen
 %{_usrsrc}/%{dkms_name}-%{version}/%{dkms_name}.7
 %license /lib/firmware/updates/intel/%{dkms_name}/ddp/LICENSE
-/lib/firmware/updates/intel/%{dkms_name}/ddp/%{ddp_package}
+/lib/firmware/updates/intel/%{dkms_name}/ddp/%{dkms_name}-*.pkg
 /lib/firmware/updates/intel/%{dkms_name}/ddp/%{dkms_name}.pkg
 
 %changelog
