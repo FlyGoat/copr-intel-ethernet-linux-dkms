@@ -64,6 +64,7 @@ The same settings can be entered in the COPR web UI:
 - Method: `rpkg`
 - Spec file: the matching top-level `*-dkms.spec`
 - Webhook rebuild: enabled
+- GitHub webhook content type: `application/json`
 
 ## Upstream Updates
 
