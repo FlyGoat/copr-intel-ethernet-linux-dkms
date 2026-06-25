@@ -2,7 +2,7 @@
 set -euo pipefail
 
 repo="${COPR_REPO:-flygoat/intel-ethernet-linux-dkms}"
-clone_url="${CLONE_URL:-https://github.com/FlyGoat/intel-ethernet-linux-dkms.git}"
+clone_url="${CLONE_URL:-https://github.com/FlyGoat/copr-intel-ethernet-linux-dkms.git}"
 branch="${BRANCH:-main}"
 
 packages=(
@@ -32,4 +32,3 @@ for item in "${packages[@]}"; do
       --method rpkg
   fi
 done
-

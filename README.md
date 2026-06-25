@@ -44,7 +44,7 @@ with the `rpkg` SRPM build method:
 
 ```sh
 COPR_REPO=flygoat/intel-ethernet-linux-dkms \
-CLONE_URL=https://github.com/FlyGoat/intel-ethernet-linux-dkms.git \
+CLONE_URL=https://github.com/FlyGoat/copr-intel-ethernet-linux-dkms.git \
 scripts/copr-rpkg-setup.sh
 ```
 
@@ -59,7 +59,7 @@ The same settings can be entered in the COPR web UI:
 
 - Source type: SCM
 - Type: Git
-- Clone URL: `https://github.com/FlyGoat/intel-ethernet-linux-dkms.git`
+- Clone URL: `https://github.com/FlyGoat/copr-intel-ethernet-linux-dkms.git`
 - Committish: `main`
 - Method: `rpkg`
 - Spec file: `ice-dkms.spec` or `iavf-dkms.spec`
@@ -85,4 +85,3 @@ To add another Intel driver such as `i40e`:
 3. Add it to the `SPECS` list in `Makefile`, the CI matrix, and
    `scripts/copr-rpkg-setup.sh`.
 4. Run `python3 scripts/update-drivers.py --write`.
-

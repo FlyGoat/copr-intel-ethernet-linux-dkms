@@ -1,6 +1,6 @@
 {
   "copr": "flygoat/intel-ethernet-linux-dkms",
-  "github_repo": "FlyGoat/intel-ethernet-linux-dkms",
+  "github_repo": "FlyGoat/copr-intel-ethernet-linux-dkms",
   "drivers": [
     {
       "name": "ice",
@@ -24,4 +24,3 @@
     }
   ]
 }
-

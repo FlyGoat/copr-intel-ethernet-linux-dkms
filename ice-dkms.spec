@@ -32,6 +32,8 @@ dkms_src=%{buildroot}%{_usrsrc}/%{dkms_name}-%{version}
 install -d "$dkms_src"
 cp -a COPYING README src scripts kcompat-gen pci.updates %{dkms_name}.7 "$dkms_src"/
 cp -a ddp "$dkms_src"/
+sed -i '1s|^#!/usr/bin/env python$|#!/usr/bin/python3|' \
+    "$dkms_src/scripts/adqsetup/adqsetup.py"
 
 cat > "$dkms_src/dkms.conf" <<'EOF'
 PACKAGE_NAME="%{dkms_name}"
