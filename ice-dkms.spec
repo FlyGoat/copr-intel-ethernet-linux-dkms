@@ -1,5 +1,6 @@
 %global dkms_name ice
 %global upstream_repo intel/ethernet-linux-ice
+%global _disable_source_fetch 0
 
 Name:           ice-dkms
 Version:        2.6.6
@@ -8,7 +9,7 @@ Summary:        DKMS package for the Intel Ethernet 800 Series ice driver
 
 License:        GPL-2.0-only AND LicenseRef-Intel-Redistributable
 URL:            https://github.com/%{upstream_repo}
-Source0:        %{url}/releases/download/v%{version}/%{dkms_name}-%{version}.tar.gz
+Source0:        https://github.com/%{upstream_repo}/releases/download/v%{version}/%{dkms_name}-%{version}.tar.gz
 
 BuildArch:      noarch
 Requires:       dkms
@@ -74,4 +75,3 @@ ln -s "$(basename "$(ls ddp/%{dkms_name}-*.pkg)")" "$firmware_dir/%{dkms_name}.p
 %changelog
 * Thu Jun 25 2026 FlyGoat <flygoat@users.noreply.github.com> - 2.6.6-1
 - Initial DKMS package for Intel ice.
-

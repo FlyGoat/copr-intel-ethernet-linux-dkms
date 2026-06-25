@@ -1,5 +1,6 @@
 %global dkms_name iavf
 %global upstream_repo intel/ethernet-linux-iavf
+%global _disable_source_fetch 0
 
 Name:           iavf-dkms
 Version:        4.13.35
@@ -8,7 +9,7 @@ Summary:        DKMS package for the Intel Ethernet Adaptive Virtual Function dr
 
 License:        GPL-2.0-only
 URL:            https://github.com/%{upstream_repo}
-Source0:        %{url}/releases/download/v%{version}/%{dkms_name}-%{version}.tar.gz
+Source0:        https://github.com/%{upstream_repo}/releases/download/v%{version}/%{dkms_name}-%{version}.tar.gz
 
 BuildArch:      noarch
 Requires:       dkms
@@ -67,4 +68,3 @@ EOF
 %changelog
 * Thu Jun 25 2026 FlyGoat <flygoat@users.noreply.github.com> - 4.13.35-1
 - Initial DKMS package for Intel iavf.
-
