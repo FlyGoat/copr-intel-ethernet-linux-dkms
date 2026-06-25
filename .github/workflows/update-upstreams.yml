@@ -1,0 +1,42 @@
+name: Update Upstreams
+
+on:
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Refresh tracked upstream releases
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/update-drivers.py --write
+      - name: Open pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet; then
+            echo "No upstream updates."
+            exit 0
+          fi
+
+          branch="bump/upstreams-$(date -u +%Y%m%d%H%M%S)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add drivers.json '*-dkms.spec'
+          git commit -m "Update Intel Ethernet driver releases"
+          git push origin "$branch"
+          gh pr create \
+            --title "Update Intel Ethernet driver releases" \
+            --body "Automated upstream release metadata refresh for DKMS packages." \
+            --base main \
+            --head "$branch"
+

@@ -1,0 +1,35 @@
+name: SRPM
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  srpm:
+    name: Build ${{ matrix.spec }}
+    runs-on: ubuntu-latest
+    container: fedora:latest
+    strategy:
+      fail-fast: false
+      matrix:
+        spec:
+          - ice-dkms.spec
+          - iavf-dkms.spec
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install rpkg tooling
+        run: dnf -y install git make python3 rpm-build rpkg
+      - name: Validate manifest
+        run: make validate
+      - name: Build source RPM
+        run: |
+          mkdir -p srpm
+          rpkg srpm --outdir srpm --spec "${{ matrix.spec }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.spec }}-srpm
+          path: srpm/*.src.rpm
+

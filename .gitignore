@@ -1,0 +1,6 @@
+*.src.rpm
+*.tar.gz
+/dist/
+/srpm/
+/.rpkg/
+
