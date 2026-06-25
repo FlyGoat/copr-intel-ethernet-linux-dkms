@@ -1,10 +1,11 @@
 %global dkms_name ice
 %global upstream_repo intel/ethernet-linux-ice
+%global ddp_package ice-1.3.59.0.pkg
 %global _disable_source_fetch 0
 
 Name:           ice-dkms
 Version:        2.6.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        DKMS package for the Intel Ethernet 800 Series ice driver
 
 License:        GPL-2.0-only AND LicenseRef-Intel-Redistributable
@@ -31,8 +32,7 @@ built for installed kernels.
 dkms_src=%{buildroot}%{_usrsrc}/%{dkms_name}-%{version}
 install -d "$dkms_src"
 cp -a COPYING README src scripts kcompat-gen pci.updates %{dkms_name}.7 "$dkms_src"/
-cp -a ddp "$dkms_src"/
-sed -i '1s|^#!/usr/bin/env python$|#!/usr/bin/python3|' \
+sed -i '1s|^#!/usr/bin/env python$|#!/usr/bin/env python3|' \
     "$dkms_src/scripts/adqsetup/adqsetup.py"
 
 cat > "$dkms_src/dkms.conf" <<'EOF'
@@ -50,9 +50,9 @@ EOF
 
 firmware_dir=%{buildroot}/lib/firmware/updates/intel/%{dkms_name}/ddp
 install -d "$firmware_dir"
-install -m 0644 ddp/%{dkms_name}-*.pkg "$firmware_dir"/
+install -m 0644 ddp/%{ddp_package} "$firmware_dir"/
 install -m 0644 ddp/LICENSE "$firmware_dir"/
-ln -s "$(basename "$(ls ddp/%{dkms_name}-*.pkg)")" "$firmware_dir/%{dkms_name}.pkg"
+ln -s "%{ddp_package}" "$firmware_dir/%{dkms_name}.pkg"
 
 %post
 /usr/sbin/dkms add -m %{dkms_name} -v %{version} --rpm_safe_upgrade || :
@@ -70,10 +70,15 @@ ln -s "$(basename "$(ls ddp/%{dkms_name}-*.pkg)")" "$firmware_dir/%{dkms_name}.p
 %{_usrsrc}/%{dkms_name}-%{version}/src
 %{_usrsrc}/%{dkms_name}-%{version}/scripts
 %{_usrsrc}/%{dkms_name}-%{version}/kcompat-gen
-%{_usrsrc}/%{dkms_name}-%{version}/ddp
 %{_usrsrc}/%{dkms_name}-%{version}/%{dkms_name}.7
-/lib/firmware/updates/intel/%{dkms_name}/ddp
+%license /lib/firmware/updates/intel/%{dkms_name}/ddp/LICENSE
+/lib/firmware/updates/intel/%{dkms_name}/ddp/%{ddp_package}
+/lib/firmware/updates/intel/%{dkms_name}/ddp/%{dkms_name}.pkg
 
 %changelog
+* Thu Jun 25 2026 FlyGoat <flygoat@users.noreply.github.com> - 2.6.6-2
+- Package ice DDP firmware files explicitly.
+- Normalize adqsetup Python shebang to python3.
+
 * Thu Jun 25 2026 FlyGoat <flygoat@users.noreply.github.com> - 2.6.6-1
 - Initial DKMS package for Intel ice.
