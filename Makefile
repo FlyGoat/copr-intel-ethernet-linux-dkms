@@ -5,7 +5,8 @@ SPECS := \
 	i40e-dkms.spec \
 	ixgbe-dkms.spec \
 	ixgbevf-dkms.spec \
-	igb-dkms.spec
+	igb-dkms.spec \
+	dpdk-kmods-dkms.spec
 DRIVERS := $(patsubst %-dkms.spec,%,$(SPECS))
 OUTDIR ?= dist/srpm
 

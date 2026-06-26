@@ -1,7 +1,7 @@
-# Intel Ethernet Linux DKMS Packaging
+# Ethernet Linux DKMS Packaging
 
-This repository carries COPR/rpkg packaging for Intel's out-of-tree Ethernet
-Linux drivers.
+This repository carries COPR/rpkg packaging for out-of-tree Ethernet Linux
+kernel modules.
 
 Tracked packages:
 
@@ -14,6 +14,7 @@ Tracked packages:
 | `ixgbe-dkms` | `intel/ethernet-linux-ixgbe` | `6.4.4` |
 | `ixgbevf-dkms` | `intel/ethernet-linux-ixgbevf` | `5.3.36` |
 | `igb-dkms` | `intel/ethernet-linux-igb` | `5.20.28` |
+| `dpdk-kmods-dkms` | Debian sid `dpdk-kmods` source package | `0~20241120+git` |
 
 ## Layout
 
@@ -23,6 +24,8 @@ Tracked packages:
 - `scripts/update-drivers.py` refreshes GitHub release versions, asset names,
   and SHA-256 digests. Most drivers use release assets; drivers without release
   assets can use GitHub tag archives.
+- `dpdk-kmods-dkms.spec` is pinned to the Debian sid source package and is not
+  auto-updated by `scripts/update-drivers.py`.
 - `scripts/copr-rpkg-setup.sh` creates or updates COPR SCM package definitions.
 
 ## Local rpkg Flow
@@ -77,6 +80,9 @@ python3 scripts/update-drivers.py --write
 If Intel publishes a newer GitHub release with a matching source, the workflow
 opens a pull request updating `drivers.json`, the spec `Version:`, and the
 changelog entry.
+
+`dpdk-kmods-dkms` is pinned in its spec to Debian sid's source package and is
+updated manually.
 
 ## Adding Another Driver
 

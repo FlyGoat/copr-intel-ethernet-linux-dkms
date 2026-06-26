@@ -13,6 +13,7 @@ packages=(
   "ixgbe-dkms:ixgbe-dkms.spec"
   "ixgbevf-dkms:ixgbevf-dkms.spec"
   "igb-dkms:igb-dkms.spec"
+  "dpdk-kmods-dkms:dpdk-kmods-dkms.spec"
 )
 
 for item in "${packages[@]}"; do
