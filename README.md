@@ -56,7 +56,17 @@ CLONE_URL=https://github.com/FlyGoat/copr-intel-ethernet-linux-dkms.git \
 scripts/copr-rpkg-setup.sh
 ```
 
-With webhook rebuild enabled, pushes to `main` trigger COPR package builds.
+COPR package webhook rebuilds must be enabled, but the direct GitHub-to-COPR
+push webhook should be disabled. The `COPR Webhook` GitHub Action detects
+changed top-level `*-dkms.spec` files in a push and calls COPR's package-specific
+custom webhook only for those packages.
+
+Set this GitHub Actions repository secret to the COPR custom webhook base URL,
+without the trailing package name:
+
+```sh
+COPR_CUSTOM_WEBHOOK_BASE_URL=https://copr.fedorainfracloud.org/webhooks/custom/<project-id>/<secret>
+```
 
 The same settings can be entered in the COPR web UI:
 
@@ -67,7 +77,7 @@ The same settings can be entered in the COPR web UI:
 - Method: `rpkg`
 - Spec file: the matching top-level `*-dkms.spec`
 - Webhook rebuild: enabled
-- GitHub webhook content type: `application/json`
+- Triggering: GitHub Action calls the package-specific custom webhook
 
 ## Upstream Updates
 
