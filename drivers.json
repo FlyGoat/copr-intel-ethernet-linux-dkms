@@ -7,10 +7,10 @@
       "package": "ice-dkms",
       "spec": "ice-dkms.spec",
       "upstream": "intel/ethernet-linux-ice",
-      "version": "2.6.6",
-      "tag": "v2.6.6",
-      "asset": "ice-2.6.6.tar.gz",
-      "sha256": "d992e3255c44189830a954b0b420fb9f6f9cce15ce9596522bfb0ec2f5f73225"
+      "version": "2.6.7",
+      "tag": "v2.6.7",
+      "asset": "ice-2.6.7.tar.gz",
+      "sha256": "89eaffee6acabedbaa45ba990d87371ae4178f194302bd830f8dd6be88a927ae"
     },
     {
       "name": "iavf",
@@ -28,10 +28,10 @@
       "spec": "idpf-dkms.spec",
       "upstream": "intel/ethernet-linux-idpf",
       "source_type": "tag-archive",
-      "version": "1.0.11",
-      "tag": "v1.0.11",
-      "asset": "idpf-1.0.11.tar.gz",
-      "sha256": "2841360b3e450004d8514b595556cba49c8f41f419c5ca26d2b75f63c6a36597"
+      "version": "1.0.13",
+      "tag": "v1.0.13",
+      "asset": "idpf-1.0.13.tar.gz",
+      "sha256": "f9cb0a2eb2b89e57b28b1cbef905455359363b6cd517d92f724fce6d361e0a6a"
     },
     {
       "name": "i40e",
@@ -48,10 +48,10 @@
       "package": "ixgbe-dkms",
       "spec": "ixgbe-dkms.spec",
       "upstream": "intel/ethernet-linux-ixgbe",
-      "version": "6.4.4",
-      "tag": "v6.4.4",
-      "asset": "ixgbe-6.4.4.tar.gz",
-      "sha256": "29f6787dfe81466f4776c0cd2998465ff63b773dc5fb0bc937960a9ebb29c216"
+      "version": "6.4.5",
+      "tag": "v6.4.5",
+      "asset": "ixgbe-6.4.5.tar.gz",
+      "sha256": "8d23f2c329e0b93055236e67ffbf1de99d8dce32ccc75beb759774c7c24d7ed4"
     },
     {
       "name": "ixgbevf",
