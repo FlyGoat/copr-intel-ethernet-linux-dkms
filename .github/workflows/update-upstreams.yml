@@ -34,9 +34,10 @@ jobs:
           git add drivers.json '*-dkms.spec'
           git commit -m "Update Intel Ethernet driver releases"
           git push origin "$branch"
-          gh pr create \
+          if ! gh pr create \
             --title "Update Intel Ethernet driver releases" \
             --body "Automated upstream release metadata refresh for DKMS packages." \
             --base main \
-            --head "$branch"
-
+            --head "$branch"; then
+            echo "::warning::Failed to create pull request automatically. Please enable \"Allow GitHub Actions to create and approve pull requests\" in repository settings, then rerun this workflow."
+          fi
