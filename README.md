@@ -90,6 +90,9 @@ python3 scripts/update-drivers.py --write
 If Intel publishes a newer GitHub release with a matching source, the workflow
 opens a pull request updating `drivers.json`, the spec `Version:`, and the
 changelog entry.
+If the repository disallows pull request creation with `GITHUB_TOKEN`, set an
+`UPSTREAMS_PR_TOKEN` repository secret (PAT or app token with repo pull-request
+permissions) so this workflow can still create the PR.
 
 `dpdk-kmods-dkms` is pinned in its spec to Debian sid's source package and is
 updated manually.
