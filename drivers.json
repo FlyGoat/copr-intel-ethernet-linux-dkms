@@ -28,10 +28,10 @@
       "spec": "idpf-dkms.spec",
       "upstream": "intel/ethernet-linux-idpf",
       "source_type": "tag-archive",
-      "version": "1.0.13",
-      "tag": "v1.0.13",
-      "asset": "idpf-1.0.13.tar.gz",
-      "sha256": "f9cb0a2eb2b89e57b28b1cbef905455359363b6cd517d92f724fce6d361e0a6a"
+      "version": "1.0.15",
+      "tag": "v1.0.15",
+      "asset": "idpf-1.0.15.tar.gz",
+      "sha256": "336a0933e90398d081b8a498ee60a89dbd5af79fb5242bf0e3799cc8cd73739d"
     },
     {
       "name": "i40e",
