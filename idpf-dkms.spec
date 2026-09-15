@@ -3,7 +3,7 @@
 %global _disable_source_fetch 0
 
 Name:           idpf-dkms
-Version:        1.0.13
+Version:        1.0.15
 Release:        1%{?dist}
 Summary:        DKMS package for the Intel Infrastructure Data Path Function driver
 
@@ -69,6 +69,9 @@ EOF
 %{_usrsrc}/%{dkms_name}-%{version}/scripts
 
 %changelog
+* Tue Sep 15 2026 FlyGoat <flygoat@users.noreply.github.com> - 1.0.15-1
+- Update to upstream idpf 1.0.15.
+
 * Sat Aug 08 2026 FlyGoat <flygoat@users.noreply.github.com> - 1.0.13-1
 - Update to upstream idpf 1.0.13.
 
