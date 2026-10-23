@@ -3,7 +3,7 @@
 %global _disable_source_fetch 0
 
 Name:           ice-dkms
-Version:        2.6.7
+Version:        2.7.6
 Release:        1%{?dist}
 Summary:        DKMS package for the Intel Ethernet 800 Series ice driver
 
@@ -77,6 +77,9 @@ ln -s "$ddp_package" "$firmware_dir/%{dkms_name}.pkg"
 /lib/firmware/updates/intel/%{dkms_name}/ddp/%{dkms_name}.pkg
 
 %changelog
+* Fri Oct 23 2026 FlyGoat <flygoat@users.noreply.github.com> - 2.7.6-1
+- Update to upstream ice 2.7.6.
+
 * Sat Aug 08 2026 FlyGoat <flygoat@users.noreply.github.com> - 2.6.7-1
 - Update to upstream ice 2.6.7.
 

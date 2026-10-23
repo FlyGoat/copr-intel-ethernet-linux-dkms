@@ -3,7 +3,7 @@
 %global _disable_source_fetch 0
 
 Name:           i40e-dkms
-Version:        2.30.18
+Version:        2.30.83
 Release:        1%{?dist}
 Summary:        DKMS package for the Intel 40-10 Gigabit Ethernet driver
 
@@ -65,5 +65,8 @@ EOF
 %{_usrsrc}/%{dkms_name}-%{version}/%{dkms_name}.7
 
 %changelog
+* Fri Oct 23 2026 FlyGoat <flygoat@users.noreply.github.com> - 2.30.83-1
+- Update to upstream i40e 2.30.83.
+
 * Thu Jun 25 2026 FlyGoat <flygoat@users.noreply.github.com> - 2.30.18-1
 - Initial DKMS package for Intel i40e.

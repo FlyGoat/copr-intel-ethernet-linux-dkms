@@ -3,7 +3,7 @@
 %global _disable_source_fetch 0
 
 Name:           ixgbe-dkms
-Version:        6.4.5
+Version:        6.5.9
 Release:        1%{?dist}
 Summary:        DKMS package for the Intel 10GbE PCI Express driver
 
@@ -65,6 +65,9 @@ EOF
 %{_usrsrc}/%{dkms_name}-%{version}/%{dkms_name}.7
 
 %changelog
+* Fri Oct 23 2026 FlyGoat <flygoat@users.noreply.github.com> - 6.5.9-1
+- Update to upstream ixgbe 6.5.9.
+
 * Sat Aug 08 2026 FlyGoat <flygoat@users.noreply.github.com> - 6.4.5-1
 - Update to upstream ixgbe 6.4.5.
 
